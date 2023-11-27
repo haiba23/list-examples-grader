@@ -14,3 +14,40 @@ echo 'Finished cloning'
 
 # Then, add here code to compile and run, and do any post-processing of the
 # tests
+files=$(find student-submission -name "ListExamples.java")
+
+for file in $files
+do
+    expected=$(cat $file) 
+
+    if [[ -f $file ]]
+    
+    then
+        echo "$file is a file!"
+    else
+        echo "$file failed -f"
+    fi
+
+    if [[ -e $file ]]
+    
+    then
+        echo "$file exists!"
+    else
+        echo "$file failed -e"
+    fi
+done
+
+cp -r student-submission grading-area #puts the stuff in student to grading
+cp GradeServer.java grading-area
+cp Server.java grading-area
+cp TestListExamples.java grading-area
+
+
+if [ $? -ne 0 ]; then
+    echo "Tests compilation failed."
+
+else
+    echo "Good job"
+fi
+
+java GradeServer 4000
