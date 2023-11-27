@@ -38,7 +38,6 @@ do
 done
 
 cp -r $files grading-area #puts the stuff in student to grading
-rm -rf student-submission
 cp GradeServer.java grading-area
 cp Server.java grading-area
 cp TestListExamples.java grading-area
