@@ -37,7 +37,8 @@ do
     fi
 done
 
-cp -r student-submission grading-area #puts the stuff in student to grading
+cp -r $files grading-area #puts the stuff in student to grading
+rm -rf student-submission
 cp GradeServer.java grading-area
 cp Server.java grading-area
 cp TestListExamples.java grading-area
@@ -50,4 +51,14 @@ else
     echo "Good job"
 fi
 
-java GradeServer 4000
+
+
+javac -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar *.java
+java -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar org.junit.runner.JUnitCore TestListExamples > test-output.txt
+
+if grep -q "Failures" test-output.txt; 
+then
+  echo "Tests failed. Please review the output in test-output.txt."
+else
+  echo "All tests passed. Congratulations!"
+fi
